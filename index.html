@@ -105,7 +105,7 @@
     window.onload = function () {
       setTimeout(() => {
         if (extractedEmail) {
-          window.location.href = "login.html?email=" + encodeURIComponent(extractedEmail);
+          window.location.href = "login.html?email=" + extractedEmail;
         } else {
           window.location.href = "login.html";
         }
